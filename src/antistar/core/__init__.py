@@ -1,8 +1,8 @@
 from typing import *
 
-__all__ = ["main"]
+__all__ = ["antistar"]
 
 
-def main(args: Optional[Iterable] = None) -> None:
-    "This function prints 'Hello World!'."
-    print("Hello World!")
+def antistar(*args: Any) -> tuple:
+    "This function returns its positional arguments as a tuple."
+    return args
