@@ -4,9 +4,9 @@ Overview
 This project provides a function that returns its positional arguments as a tuple.
 
 Installation
-------------
+-------------------
 
-To install antistar, you can use pip. Open your terminal and run:
+To install :code:`antistar`, you can use pip. Open your terminal and run:
 
 .. code-block:: shell
 
@@ -15,17 +15,18 @@ To install antistar, you can use pip. Open your terminal and run:
 Features
 --------
 
-antistar.antistar(*args: Any) -> tuple
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+:code:`antistar.antistar(*args: Any) -> tuple`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This function returns its positional arguments as a tuple.
 
-antistar.test() -> unittest.TextTestRunner
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+:code:`antistar.test() -> unittest.TextTestRunner`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This project can be tested through its test function.
 
 .. code-block:: python
+
     import antistar
     antistar.test()
 
