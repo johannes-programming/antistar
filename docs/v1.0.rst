@@ -6,7 +6,7 @@ This project provides a function that returns its positional arguments as a tupl
 Installation
 -------------------
 
-To install :code:`antistar`, you can use pip. Open your terminal and run:
+To install :code:`antistar`, you can use :code:`pip`. Open your terminal and run:
 
 .. code-block:: shell
 
