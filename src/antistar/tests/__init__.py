@@ -3,14 +3,12 @@ import unittest
 __all__ = ["test"]
 
 
-def test() -> unittest.TextTestRunner:
+def test() -> unittest.TextTestResult:
     "This function runs all the tests."
     loader: unittest.TestLoader
     suite: unittest.TestSuite
     runner: unittest.TextTestRunner
-    result: unittest.TextTestResult
     loader = unittest.TestLoader()
     suite = loader.discover(start_dir="antistar.tests")
     runner = unittest.TextTestRunner()
-    result = runner.run(suite)
-    return result
+    return runner.run(suite)
