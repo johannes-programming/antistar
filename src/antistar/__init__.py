@@ -1,2 +1,1 @@
-from antistar.core import *
-from antistar.tests import *
+from antistar.core import antistar
