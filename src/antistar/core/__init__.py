@@ -1,3 +1,5 @@
+"This module provides the core antistar functionality."
+
 from typing import TypeVar
 
 __all__ = ["antistar"]

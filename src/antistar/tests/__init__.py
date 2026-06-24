@@ -1,3 +1,5 @@
+"This module provides the test runner for antistar."
+
 import unittest
 
 __all__ = ["test"]
