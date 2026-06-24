@@ -1,4 +1,4 @@
-"This module provides the core antistar functionality."
+"""This module provides the core antistar functionality."""
 
 from typing import TypeVar
 
@@ -8,5 +8,5 @@ Arg = TypeVar("Arg")
 
 
 def antistar(*args: Arg) -> tuple[Arg, ...]:
-    "This function returns its positional arguments as a tuple."
+    """Return the positional arguments as a tuple."""
     return args
