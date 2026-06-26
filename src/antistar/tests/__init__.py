@@ -1,12 +1,12 @@
-"This module provides the test runner for antistar."
-
-import unittest
+"""Provide the test runner for antistar."""
 
 __all__ = ["test"]
 
+import unittest
+
 
 def test() -> unittest.TextTestResult:
-    "This function runs all the tests."
+    """Run all the tests."""
     loader: unittest.TestLoader
     suite: unittest.TestSuite
     runner: unittest.TextTestRunner
