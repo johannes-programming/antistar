@@ -1,4 +1,4 @@
-"""This module exposes the public API of antistar."""
+"""Expose the public API of antistar."""
 
 __all__ = ["antistar"]
 
