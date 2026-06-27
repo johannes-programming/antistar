@@ -1,7 +1,8 @@
 Overview
 --------
 
-This project provides a function that returns its positional arguments as a ``tuple``.
+This project provides a function that returns its positional
+arguments as a ``tuple``.
 
 Installation
 ------------
