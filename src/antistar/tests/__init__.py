@@ -1,6 +1,6 @@
 """Provide the test runner for antistar."""
 
-__all__ = ["test"]
+__all__: list[str] = ["test"]
 
 import unittest
 
