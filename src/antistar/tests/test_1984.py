@@ -1,6 +1,6 @@
 """Provide unit tests for the antistar package."""
 
-__all__ = ["TestAntistar"]
+__all__: list[str] = ["TestAntistar"]
 
 import unittest
 from typing import Any, Self
@@ -17,12 +17,6 @@ class TestAntistar(unittest.TestCase):
         result = antistar.antistar()
         self.assertEqual(result, ())
 
-    def test_single_arg(self: Self) -> None:
-        """Test the antistar function with a single argument."""
-        result: tuple[Any, ...]
-        result = antistar.antistar(42)
-        self.assertEqual(result, (42,))
-
     def test_multiple_args(self: Self) -> None:
         """Test the antistar function with multiple heterogeneous arguments."""
         result: tuple[Any, ...]
@@ -34,6 +28,12 @@ class TestAntistar(unittest.TestCase):
         result: tuple[Any, ...]
         result = antistar.antistar(1, 2, 3)
         self.assertEqual(result, (1, 2, 3))
+
+    def test_single_arg(self: Self) -> None:
+        """Test the antistar function with a single argument."""
+        result: tuple[Any, ...]
+        result = antistar.antistar(42)
+        self.assertEqual(result, (42,))
 
 
 if __name__ == "__main__":

@@ -1,8 +1,8 @@
-"""This module provides the core antistar functionality."""
+"""Provide the core antistar functionality."""
+
+__all__: list[str] = ["antistar"]
 
 from typing import TypeVar
-
-__all__ = ["antistar"]
 
 Arg = TypeVar("Arg")
 
