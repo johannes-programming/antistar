@@ -26,10 +26,14 @@ The typing conforms strictly to ``mypy``.
 Features
 --------
 
-``antistar.antistar(*args: Arg) -> tuple[Arg, ...]``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``antistar.antistar[Arg](*args: Arg) -> tuple[Arg, ...]``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This function returns its positional arguments as a tuple.
+
+.. container:: versionchanged
+
+    **Changed in version 1.1:** The function ``antistar`` is now generic.
 
 ``antistar.tests.test() -> unittest.TextTestResult``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
