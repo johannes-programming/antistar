@@ -1,5 +1,5 @@
 .ONESHELL:
-.PHONY: all add amend beautiful black build clean commit commit-version dist echo isort jacobus py311 py312 py313 py314 py315 pypi rebase reset test toml_sorted upload version
+.PHONY: all add amend beautiful black build canonicalize clean commit commit-version dist echo isort jacobus py311 py312 py313 py314 py315 pypi rebase reset test toml_sorted upload version
 SHELL := /bin/zsh
 
 all: beautiful commit-version
@@ -10,7 +10,7 @@ add:
 amend: add
 	git commit --amend --no-edit;
 
-beautiful: isort black jacobus toml_sorted
+beautiful: canonicalize isort black jacobus toml_sorted
 
 black: py311
 	conda run -n py311 pip install 'black>=24.5,<26' >/dev/null;
@@ -20,15 +20,18 @@ build: beautiful py311
 	conda run -n py311 pip install 'build>=1.3,<2' >/dev/null;
 	conda run -n py311 python -m build;
 
+canonicalize: py311
+	conda run -n py311 python make/canonicalize.py -- .;
+
+clean:
+	rm -fr 'dist/';
+
 commit: add
 	git commit --allow-empty $(PARAMS);
 
 commit-version: add py311
 	conda run -n py311 pip install 'toml_get>=1.0,<2' >/dev/null;
 	git commit --allow-empty "$$(conda run -n py311 python -m toml_get @make/toml_get.txt)";
-
-clean:
-	rm -fr 'dist/';
 
 dist: clean build
 
@@ -71,14 +74,15 @@ reset:
 
 test: dist py311
 	mkdir dist/out/ ;
-	conda run -n py311 pip install "style_checker>=0.1.5,<0.2";
+	conda run -n py311 pip install "style-checker>=0.1.5,<0.2";
 	conda run -n py311 python -m style_checker -- "**/*.py" > dist/out/style_checker_out.txt 2> dist/out/style_checker_err.txt || true;
 	conda run -n base python make/env.py test_antistar_mypy --python=3.11 --recreate >/dev/null;
 	conda run -n test_antistar_mypy pip install dist/*.tar.gz >/dev/null;
 	conda run -n test_antistar_mypy python make/run_introspection.py > dist/out/introspection_out.txt 2> dist/out/introspection_err.txt || true;
 	conda run -n test_antistar_mypy pip install mypy >/dev/null;
-	conda run -n test_antistar_mypy python -m mypy --exclude build --exclude dist --strict . > dist/out/mypy_dir_out.txt 2> dist/out/mypy_dir_err.txt || true;
+	conda run -n test_antistar_mypy python -m mypy --exclude build --exclude dist --exclude make --exclude tests/examples --strict . > dist/out/mypy_dir_out.txt 2> dist/out/mypy_dir_err.txt || true;
 	conda run -n test_antistar_mypy python -m mypy --strict -p antistar > dist/out/mypy_pkg_out.txt 2> dist/out/mypy_pkg_err.txt || true;
+	conda run -n py311 python -m mypy --strict make > dist/out/mypy_make_out.txt 2> dist/out/mypy_make_err.txt || true;
 	conda run -n base python make/env.py test_antistar_tests --python=3.11 --recreate >/dev/null;
 	conda run -n test_antistar_tests pip install dist/*.tar.gz >/dev/null;
 	conda run -n test_antistar_tests python run_tests.py > dist/out/tests_out.txt 2> dist/out/tests_err.txt || true;
