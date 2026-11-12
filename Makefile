@@ -21,6 +21,8 @@ build: beautiful py311
 	conda run -n py311 python -m build;
 
 canonicalize: py311
+	conda run -n py311 pip install 'packaging<27,>=26.3';
+	conda run -n py311 pip install 'tomli-w<2,>=1.2';
 	conda run -n py311 python make/canonicalize.py -- .;
 
 clean:
@@ -30,7 +32,7 @@ commit: add
 	git commit --allow-empty $(PARAMS);
 
 commit-version: add py311
-	conda run -n py311 pip install 'toml_get>=1.0,<2' >/dev/null;
+	conda run -n py311 pip install 'toml-get<2,>=1.1' >/dev/null;
 	git commit --allow-empty "$$(conda run -n py311 python -m toml_get @make/toml_get.txt)";
 
 dist: clean build
@@ -89,7 +91,7 @@ test: dist py311
 	zip -r dist/out.zip dist/out;
 
 toml_sorted: py311
-	conda run -n py311 pip install 'toml_sorted>=2.2,<3' >/dev/null;
+	conda run -n py311 pip install 'toml-sorted<3,>=2.2' >/dev/null;
 	conda run -n py311 python -m toml_sorted @make/toml_sorted_pyproject.txt;
 
 upload: py311
