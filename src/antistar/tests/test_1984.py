@@ -11,25 +11,25 @@ import antistar
 class TestAntistar(unittest.TestCase):
     """Test the antistar function."""
 
-    def test_empty_args(self: Self) -> None:
+    def test_empty_args(self: Self, /) -> None:
         """Test the antistar function with no arguments."""
         result: tuple[Any, ...]
         result = antistar.antistar()
         self.assertEqual(result, ())
 
-    def test_multiple_args(self: Self) -> None:
+    def test_multiple_args(self: Self, /) -> None:
         """Test the antistar function with multiple heterogeneous arguments."""
         result: tuple[Any, ...]
         result = antistar.antistar("hello", 3.14, True, None)
         self.assertEqual(result, ("hello", 3.14, True, None))
 
-    def test_order_preservation(self: Self) -> None:
+    def test_order_preservation(self: Self, /) -> None:
         """Test that the order of arguments is preserved."""
         result: tuple[Any, ...]
         result = antistar.antistar(1, 2, 3)
         self.assertEqual(result, (1, 2, 3))
 
-    def test_single_arg(self: Self) -> None:
+    def test_single_arg(self: Self, /) -> None:
         """Test the antistar function with a single argument."""
         result: tuple[Any, ...]
         result = antistar.antistar(42)
