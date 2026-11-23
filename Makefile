@@ -1,5 +1,5 @@
 .ONESHELL:
-.PHONY: all add amend beautiful beautiful-other beautiful-py beautiful-toml black build canonicalize clean commit commit-version dist echo isort jacobus jacobus-other jacobus-py jacobus-toml py311 py312 py313 py314 py315 pypi pyproject-fmt rebase reset ruff test toml-sorted upload version
+.PHONY: all add amend beautiful beautiful-other beautiful-py beautiful-toml black build canonicalize clean commit commit-version dist echo isort jacobus jacobus-other jacobus-py jacobus-toml out py311 py312 py313 py314 py315 pypi pyproject-fmt rebase reset ruff test toml-sorted upload version
 SHELL := /bin/zsh
 
 all: beautiful commit-version
@@ -68,6 +68,9 @@ jacobus-toml: py311
 	conda run -n py311 pip install 'jacobus>=2.4,<3' >/dev/null;
 	conda run -n py311 python -m jacobus @make/jacobus_toml.txt;
 
+out:
+	mkdir -p dist/out/;
+
 py311:
 	conda run -n base python make/env.py py311 --python=3.11;
 
@@ -87,7 +90,7 @@ pypi: dist upload
 
 pyproject-fmt: py311
 	conda run -n py311 pip install "pyproject-fmt<3,>=2.30";
-	conda run -n py311 pyproject-fmt pyproject.toml || conda run -n py311 pyproject-fmt --check pyproject.toml;
+	conda run -n py311 pyproject-fmt pyproject.toml >/dev/null 2>/dev/null || conda run -n py311 pyproject-fmt --check pyproject.toml;
 
 rebase:
 	git rebase --empty=drop --interactive $(PARAMS);
@@ -95,13 +98,12 @@ rebase:
 reset:
 	git reset HEAD~1;
 
-ruff: py311
+ruff: py311 out
 	conda run -n py311 python -m pip install "ruff>=0.14,<1";
 	conda run -n py311 ruff check --fix . ;
 	conda run -n py311 ruff format . ;
 
-test: dist py311
-	mkdir dist/out/ ;
+test: dist py311 out
 	conda run -n py311 pip install "style-checker<0.2,>=0.1.8";
 	conda run -n py311 python -m style_checker -- "**/*.py" > dist/out/style_checker_out.txt 2> dist/out/style_checker_err.txt || true;
 	conda run -n base python make/env.py test_antistar_mypy --python=3.11 --recreate >/dev/null;
